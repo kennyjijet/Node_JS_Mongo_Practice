@@ -23,6 +23,8 @@ var TaskSchema = new Schema({
 });
 
 */
-
-var CustomerSchema = new Schema({});
+var CustomerSchema = new Schema({ name: {
+    type: String,
+    required: 'Kindly enter the name of the task'
+  }});
 module.exports = mongoose.model('Customers', CustomerSchema);
