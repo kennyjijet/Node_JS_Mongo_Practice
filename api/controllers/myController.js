@@ -34,12 +34,13 @@ exports.create_a_task = function (req, res) {
         res.json(task);
     });
     */
+    
     var new_task = new Task({"name": "test"});
-   new_task.save(function (err, task) {
+    new_task.save(function (err, task) {
        if (err)
            res.send(err);
        res.json(task);
-   });
+    });
 };
 
 exports.delete_tasks = function (req, res) {
