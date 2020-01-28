@@ -13,6 +13,9 @@ module.exports = function (app) {
     app.route('/customersCreate')
         .get(myList.create_a_task);
     
+    app.route('/addBook/:name')
+        .get(myList.add_a_story_to_author);
+    
     
 
 /*
