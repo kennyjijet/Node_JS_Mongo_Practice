@@ -1,15 +1,24 @@
 'use strict';
-
-var mongoose = require('mongoose'),
 //Task = mongoose.model('Tasks');
-Task = mongoose.model('Customers');
-
+var mongoose = require('mongoose'),
+    Customer = mongoose.model('Customers'),
+    Author = mongoose.model('Author'),
+    Story = mongoose.model('Story');
+    
 exports.list_all_tasks = function (req, res) {
-    Task.find({}, function (err, task) {
+    /*
+    Customer.find({}, function (err, task) {
             if (err) {
                 res.send(err);
             }
         res.json(task);
+    });
+    */
+   Author.find({}, function (err, task) {
+    if (err) {
+        res.send(err);
+    }
+    res.json(task);
     });
     
     /*
@@ -24,6 +33,46 @@ exports.list_all_tasks = function (req, res) {
   */
 };
 
+function createAuthor() {
+    var IsSaved = true;
+    var bob = new Author({ name: 'Bob Smith' });
+    var story = new Story({
+        title: "Bob goes sledding",
+        author: bob._id    // assign the _id from the our author Bob. This ID is created by default!
+    });
+    story.save(function (err) {
+        if (err) {
+            IsSaved = false;
+            return handleError(err);
+            // Bob now has his story.
+        }
+    });
+    bob.stories.push(story._id);
+    bob.save(function (err) {
+        if (err) {
+            IsSaved = false;
+            return handleError(err);
+        }
+        //Bob now exists, so lets create a story.
+        //bob.stories.push(story._id);
+
+    });
+    return (IsSaved) ? "saved": "failed";
+}
+    /*
+   var story = new Story({
+    title: "Bob goes sledding",
+    author: "test"    // assign the _id from the our author Bob. This ID is created by default!
+   });
+    
+   story.save(function (err) {
+       if (err) {
+           return handleError(err);
+       }
+   return "save";
+    // Bob now has his story
+       */
+
 
 exports.create_a_task = function (req, res) {
     /*
@@ -35,12 +84,16 @@ exports.create_a_task = function (req, res) {
     });
     */
     
-    var new_task = new Task({"name": "test"});
+    var resText = createAuthor();
+    res.json(resText);
+    /*
+    var new_task = new Customer({"name": "test"});
     new_task.save(function (err, task) {
        if (err)
            res.send(err);
        res.json(task);
     });
+    */
 };
 
 exports.delete_tasks = function (req, res) {

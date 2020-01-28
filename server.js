@@ -2,8 +2,15 @@ var express = require('express'),
     app = express(),
     port = process.env.PORT || 3001,
     mongoose = require('mongoose'),
-    Task = require('./api/models/myModel'), //created model loading here
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    Author = require('./api/models/Author'),
+    Customer = require('./api/models/myModel'),
+    Story = require('./api/models/Story');
+    
+//created model loading here
+//require('./api/models/myModel');
+//require('./api/models/Author');
+//require('./api/models/Story');
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
